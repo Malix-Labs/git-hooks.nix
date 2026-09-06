@@ -484,6 +484,7 @@ hooks](modules/pre-commit.nix).
 
 ### Nushell
 
+- [nu-check](https://www.nushell.sh/commands/docs/nu-check.html)
 - [nufmt](https://github.com/nushell/nufmt)
 
 ### OCaml

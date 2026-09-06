@@ -1103,6 +1103,15 @@ in
           };
         };
       };
+      nu-check = mkOption {
+        description = "nu-check hook";
+        type = types.submodule {
+          imports = [ hookModule ];
+          options.settings = {
+            asModule = mkEnableOption "parsing content as module";
+          };
+        };
+      };
       nufmt = mkOption {
         description = "nufmt hook";
         type = types.submodule {
@@ -4009,6 +4018,18 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.fourm
                   ]);
             in
             "${hooks.no-commit-to-branch.package}/bin/no-commit-to-branch ${cmdArgs}";
+        };
+      nu-check =
+        {
+          name = "nu-check";
+          description = "Validate and parse Nushell scripts.";
+          package = tools.nushell;
+          entry =
+            let
+              asModuleFlag = lib.optionalString hooks.nu-check.settings.asModule "--as-module ";
+            in
+            "${lib.getExe hooks.nu-check.package} -c 'def main [...files: string] { mut err = false; for f in $files { if not (nu-check --debug ${asModuleFlag}($f | path expand)) { $err = true } }; if $err { exit 1 } }' --";
+          files = "\\.nu$";
         };
       nufmt =
         {

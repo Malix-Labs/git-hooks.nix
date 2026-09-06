@@ -64,6 +64,7 @@
 , nixfmt-classic ? placeholder "nixfmt-classic"
 , nixfmt-rfc-style ? placeholder "nixfmt-rfc-style"
 , nixpkgs-fmt
+, nushell ? placeholder "nushell"
 , nufmt ? placeholder "nufmt"
 , nodePackages
 , ocamlPackages
@@ -186,6 +187,7 @@ in
     nil
     nixf-diagnose
     nixpkgs-fmt
+    nushell
     nufmt
     opam
     opentofu
